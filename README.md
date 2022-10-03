@@ -41,14 +41,17 @@
 2. Create table migration to store all the uploaded files
     # Command
         php artisan make:model FileUpload -m
-3. Create file upload controller along with the api resource 
+3. Define relationship of file table with users 
+    # Comments
+        one-to-many (one user )
+4. Create file upload controller along with the api resource 
     # Command
         php artisan make:controller FileUploadController --api
-4. Check all the generated routes(api end points)
+5. Check all the generated routes(api end points)
     # Command
         php artisan route:list
-5. Define all the required api end points in api.php file
-6. Protect all the important api inside auth:api middleware
+6. Define all the required api end points in api.php file
+7. Protect all the important api inside auth:api middleware
 # Example : 
 # File Upload API
 # Route::middleware(['auth:api'])->group(function () {
