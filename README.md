@@ -43,7 +43,7 @@
         php artisan make:model FileUpload -m
 3. Define relationship of file table with users 
     # Comments
-        one-to-many (one user )
+        one-to-many (one user can have multiple files )
 4. Create file upload controller along with the api resource 
     # Command
         php artisan make:controller FileUploadController --api
