@@ -21,14 +21,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 # File Upload API
-Route::apiResource('file', FileUploadController::class)->middleware('auth:api');
-Route::apiResource('user.file', FileUploadController::class)->middleware('auth:api');;
-Route::get('user/{user}/file/{file}', [FileUploadController::class, 'show'])->scopeBindings()->middleware('auth:api');;
-Route::post('user/{user}/file/{file}', [FileUploadController::class, 'update'])->scopeBindings()->middleware('auth:api');;
-Route::delete('user/{user}/file/{file}', [FileUploadController::class, 'destroy'])->scopeBindings()->middleware('auth:api');;
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::apiResource('file', FileUploadController::class);
+    Route::apiResource('user.file', FileUploadController::class);
+    Route::prefix('user')->group(function () {
+        Route::get('{user}/file/{file}', [FileUploadController::class, 'show'])->scopeBindings();
+        Route::post('{user}/file/{file}', [FileUploadController::class, 'update'])->scopeBindings();
+        Route::delete('{user}/file/{file}', [FileUploadController::class, 'destroy'])->scopeBindings();
+    });
+});
 
 # User Register API
 Route::post('register', [UserController::class, 'register']);
+
+# Optional
 Route::post('login', [UserController::class, 'login']);
 Route::get('fail', [UserController::class, 'unaccess'])->name('login');
 
