@@ -50,7 +50,6 @@ class UserController extends Controller
             Log::debug($ex);
         }
     }
-
     
     public function login(Request $request){
         try {
@@ -64,10 +63,9 @@ class UserController extends Controller
             }
             $token = auth()->user()->createToken('API Token')->accessToken;
             return response(['user' => auth()->user(), 'token' => $token]);
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (Exception $ex) {
+            Log::debug($ex);
         }
-
     }
 
     public function unaccess(){
